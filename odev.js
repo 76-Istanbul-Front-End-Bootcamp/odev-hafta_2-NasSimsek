@@ -11,7 +11,7 @@ var person = {
 }
 
 var messageFunc = person.message
-messageFunc();
+messageFunc.call(person);
 
 
 /*  
@@ -28,7 +28,7 @@ var numbers = {
     this.numbers[0].map(function(number, numberIndex){
         const result = number * this.numbers[1];
         console.log(result)
-    })
+    }.bind(this))
   }
 };
 
@@ -42,9 +42,20 @@ numbers.multiply();
   Ornek : isValidName("John") true donmeli
   Ornek : isValidName(" J ohn") false donmeli
 */
-function isValidName(name){
+function isValidName(name) {
+  if (name === null || name === undefined || name.length <= 1 || name==="\t\n"){
+     return console.log(Boolean(0));
+  }
+  var x = name.trim();
+  var xdizi = x.split("");
+  const deger = !xdizi.some(
+    element =>element < 65 ||(element > 90 && element < 97) ||element > 122
+  );
 
+  console.log(deger);
 }
+
+isValidName("fatm a");
 
 /*
   Odev 4:
@@ -58,8 +69,15 @@ function isValidName(name){
   Ornek: katilimSaati("3", 20) 60 sonucunu vermelidir.
   Ornek: katilimSaati("5", "30") 150 sonucunu vermelidir.
 */
-function katilimSaati(dersSayisi, dersSuresi){
-
+function katilimSaati(dersSayisi, dersSuresi) {
+  if (
+    (typeof(dersSayisi) != "number" && typeof(dersSayisi) != "string") ||
+    (typeof(dersSuresi) != "number" && typeof(dersSuresi) != "string")
+  )
+    return console.log("Hatalı parametre verdiniz");
+  var res = dersSayisi * dersSuresi;
+  return console.log(res);
 }
+katilimSaati(undefined, "9");
 
 
